@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/settings_page.dart';
 import 'package:flutter_application_1/pages/song_page.dart';
 
-
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
@@ -22,7 +21,7 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // home title
           Padding(
             padding: const EdgeInsets.only(left: 25.0, top: 25.0),
@@ -40,16 +39,16 @@ class MyDrawer extends StatelessWidget {
               title: const Text("S E T T I N G S"),
               leading: const Icon(Icons.settings),
               onTap: () {
-                // pop drawer 
+                // pop drawer
                 Navigator.pop(context);
-                
+
                 // navigate to settings page
                 Navigator.push(
-                  context, 
+                  context,
                   MaterialPageRoute(
                     builder: (context) => const SettingsPage(),
                   ),
-                ); 
+                );
               },
             ),
           ),
@@ -59,16 +58,16 @@ class MyDrawer extends StatelessWidget {
               title: const Text("C U R R E N T  S O N G"),
               leading: const Icon(Icons.music_note_rounded),
               onTap: () {
-                // pop drawer 
+                // pop drawer
                 Navigator.pop(context);
-                
+
                 // navigate to settings page
                 Navigator.push(
-                  context, 
+                  context,
                   MaterialPageRoute(
                     builder: (context) => const SongPage(),
                   ),
-                ); 
+                );
               },
             ),
           )

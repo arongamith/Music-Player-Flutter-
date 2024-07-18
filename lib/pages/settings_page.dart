@@ -14,9 +14,9 @@ class SettingsPage extends StatelessWidget {
         title: const Text("S E T T I N G S"),
       ),
       body: Container(
-        decoration: BoxDecoration(color: Theme.of(context).colorScheme.secondary,
-        borderRadius: BorderRadius.circular(12)
-        ),
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.secondary,
+            borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.all(16),
         margin: const EdgeInsets.all(25),
         child: Row(
@@ -24,16 +24,17 @@ class SettingsPage extends StatelessWidget {
           children: [
             // dark mode
             const Text(
-              "Dark Mode", 
+              "Dark Mode",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
 
             // switch
             CupertinoSwitch(
-              value: Provider.of<ThemeProvider>(context, listen: false).isDarkMode, 
-              onChanged: (value) => Provider.of<ThemeProvider>(context, listen: false)
-              .toggleTheme()
-            )
+                value: Provider.of<ThemeProvider>(context, listen: false)
+                    .isDarkMode,
+                onChanged: (value) =>
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toggleTheme())
           ],
         ),
       ),

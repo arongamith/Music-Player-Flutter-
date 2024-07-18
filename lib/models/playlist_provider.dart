@@ -2,51 +2,43 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/song.dart';
 
-class PlaylistProvider extends ChangeNotifier{
+class PlaylistProvider extends ChangeNotifier {
   // playlist of songs
   final List<Song> _playlist = [
-    // song 1
     Song(
-      songName: "Swear It Again", 
-      artistName: "Westlife", 
-      albumArtImagePath: 'assets/images/cover.jpg', 
+      songName: "Swear It Again",
+      artistName: "Westlife",
+      albumArtImagePath: 'assets/images/cover.jpg',
       audioPath: 'audio/swear.mp3',
     ),
-
-    // song 2
     Song(
-      songName: "If I Let You Go", 
-      artistName: "Westlife", 
-      albumArtImagePath: 'assets/images/cover.jpg', 
+      songName: "If I Let You Go",
+      artistName: "Westlife",
+      albumArtImagePath: 'assets/images/cover.jpg',
       audioPath: 'audio/if.flac',
     ),
-
-    // // song 3
     Song(
-      songName: "Fool Again", 
-      artistName: "Westlife", 
-      albumArtImagePath: 'assets/images/cover.jpg', 
+      songName: "Fool Again",
+      artistName: "Westlife",
+      albumArtImagePath: 'assets/images/cover.jpg',
       audioPath: 'audio/fool.flac',
     ),
-
     Song(
-      songName: "I Want it That Way", 
-      artistName: "Backstreet Boys", 
-      albumArtImagePath: 'assets/images/cover2.jpg', 
+      songName: "I Want it That Way",
+      artistName: "Backstreet Boys",
+      albumArtImagePath: 'assets/images/cover2.jpg',
       audioPath: 'audio/02. I Want It That Way.flac',
     ),
-
     Song(
-      songName: "Show Me the Meaning", 
-      artistName: "Backstreet Boys", 
-      albumArtImagePath: 'assets/images/cover2.jpg', 
+      songName: "Show Me the Meaning",
+      artistName: "Backstreet Boys",
+      albumArtImagePath: 'assets/images/cover2.jpg',
       audioPath: 'audio/03. Show Me the Meaning of Being Lonely.flac',
     ),
-
     Song(
-      songName: "The One", 
-      artistName: "Backstreet Boys", 
-      albumArtImagePath: 'assets/images/cover2.jpg', 
+      songName: "The One",
+      artistName: "Backstreet Boys",
+      albumArtImagePath: 'assets/images/cover2.jpg',
       audioPath: 'audio/08. The One.flac',
     )
   ];
@@ -69,7 +61,7 @@ class PlaylistProvider extends ChangeNotifier{
   Duration _totalDuration = Duration.zero;
 
   // constructor
-  PlaylistProvider(){
+  PlaylistProvider() {
     listenToDuration();
   }
 
@@ -77,7 +69,7 @@ class PlaylistProvider extends ChangeNotifier{
   bool _isPlaying = false;
 
   // play the song
-  void play() async{
+  void play() async {
     final String path = _playlist[_currentSongIndex!].audioPath;
     await _audioPlayer.stop(); // stop current song
     await _audioPlayer.play(AssetSource(path)); // play the new song
@@ -86,43 +78,41 @@ class PlaylistProvider extends ChangeNotifier{
   }
 
   // pause current song
-  void pause() async{
+  void pause() async {
     await _audioPlayer.pause();
     _isPlaying = false;
     notifyListeners();
   }
 
   // resume
-  void resume() async{
+  void resume() async {
     await _audioPlayer.resume();
     _isPlaying = true;
     notifyListeners();
   }
 
   // pause or resume
-  void pauseOrResume() async{
+  void pauseOrResume() async {
     if (_isPlaying) {
       pause();
-    }
-    else{
+    } else {
       resume();
     }
     notifyListeners();
   }
 
   // seek to a specific position in the current song
-  void seek(Duration position) async{
+  void seek(Duration position) async {
     await _audioPlayer.seek(position);
   }
 
   // play next song
   void playNextSong() {
-    if (_currentSongIndex != null){
-      if (_currentSongIndex! < _playlist.length -1){
+    if (_currentSongIndex != null) {
+      if (_currentSongIndex! < _playlist.length - 1) {
         // go to the next song if its not the last song
         _currentSongIndex = _currentSongIndex! + 1;
-      }
-      else{
+      } else {
         // if its the last song loop back to the first song
         _currentSongIndex = 0;
       }
@@ -131,17 +121,16 @@ class PlaylistProvider extends ChangeNotifier{
   }
 
   // play previous song
-  void playPreviousSong() async{
+  void playPreviousSong() async {
     // if more than 2 seonds have passed, restart the current song
-    if (_currentDuration.inSeconds > 2){
-        play();
+    if (_currentDuration.inSeconds > 2) {
+      play();
     }
     // othervise go the previous song
-    else{
-      if (currentSongIndex! > 0){
-        currentSongIndex = _currentSongIndex! -1;
-      }
-      else{
+    else {
+      if (currentSongIndex! > 0) {
+        currentSongIndex = _currentSongIndex! - 1;
+      } else {
         // if its the first song loop back to the last song
         currentSongIndex = _playlist.length - 1;
       }
@@ -150,7 +139,7 @@ class PlaylistProvider extends ChangeNotifier{
   }
 
   // listen to duration
-  void listenToDuration(){
+  void listenToDuration() {
     // listen for the total duration
     _audioPlayer.onDurationChanged.listen((newDuration) {
       _totalDuration = newDuration;
@@ -163,11 +152,10 @@ class PlaylistProvider extends ChangeNotifier{
       notifyListeners();
     });
 
-    // listen fo the completion 
+    // listen fo the completion
     _audioPlayer.onPlayerComplete.listen((event) {
       playNextSong();
     });
-
   }
 
   // dispose audio player
@@ -190,12 +178,11 @@ class PlaylistProvider extends ChangeNotifier{
 
   */
 
-  set currentSongIndex (int? newIndex){
-
+  set currentSongIndex(int? newIndex) {
     // Update current song index
     _currentSongIndex = newIndex;
 
-    if (newIndex != null){
+    if (newIndex != null) {
       play(); // play the song at the new index
     }
 
@@ -203,8 +190,7 @@ class PlaylistProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  set isPlaying (bool isPlaying){
-
+  set isPlaying(bool isPlaying) {
     _isPlaying = isPlaying;
   }
 }
